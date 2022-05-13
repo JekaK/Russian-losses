@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Russia Loses</string>
+    <string name="slava_ukraini">Слава Україні!</string>
+    <string name="tanks">Танки</string>
+    <string name="bbm">ББМ</string>
+    <string name="aircrafts">Літаки</string>
+    <string name="heli">Гелікоптери</string>
+    <string name="artilery">Артилерія</string>
+    <string name="mlrs">РСЗВ</string>
+    <string name="anti_air">Засоби ППО</string>
+    <string name="uav">БПЛА</string>
+    <string name="cruise_missles">Крилаті ракети</string>
+    <string name="ships">Кораблі (катери)</string>
+    <string name="vehicle">Автомобілі та автоцистерни</string>
+    <string name="special_vehicle">Спеціальна техніка</string>
+</resources>
