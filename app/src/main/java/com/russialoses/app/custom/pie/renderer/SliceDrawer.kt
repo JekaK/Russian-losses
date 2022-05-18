@@ -1,9 +1,9 @@
-package com.russialoses.app.custom.renderer
+package com.russialoses.app.custom.pie.renderer
 
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import com.russialoses.app.custom.PieChartData.Slice
+import com.russialoses.app.custom.pie.PieChartData.Slice
 
 interface SliceDrawer {
   fun drawSlice(

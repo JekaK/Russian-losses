@@ -1,4 +1,4 @@
-package com.russialoses.app.custom
+package com.russialoses.app.custom.pie
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationSpec
@@ -11,17 +11,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.tooling.preview.Preview
-import com.russialoses.app.custom.PieChartUtils.calculateAngle
+import com.russialoses.app.custom.pie.PieChartUtils.calculateAngle
 import com.russialoses.app.custom.animation.simpleChartAnimation
-import com.russialoses.app.custom.renderer.SimpleSliceDrawer
-import com.russialoses.app.custom.renderer.SliceDrawer
+import com.russialoses.app.custom.pie.renderer.SimpleSliceDrawer
+import com.russialoses.app.custom.pie.renderer.SliceDrawer
 
 @Composable
 fun PieChart(
-  pieChartData: PieChartData,
-  modifier: Modifier = Modifier,
-  animation: AnimationSpec<Float> = simpleChartAnimation(),
-  sliceDrawer: SliceDrawer = SimpleSliceDrawer()
+    pieChartData: PieChartData,
+    modifier: Modifier = Modifier,
+    animation: AnimationSpec<Float> = simpleChartAnimation(),
+    sliceDrawer: SliceDrawer = SimpleSliceDrawer()
 ) {
   val transitionProgress = remember(pieChartData.slices) { Animatable(initialValue = 0f) }
 
@@ -40,10 +40,10 @@ fun PieChart(
 
 @Composable
 private fun DrawChart(
-  pieChartData: PieChartData,
-  modifier: Modifier,
-  progress: Float,
-  sliceDrawer: SliceDrawer
+    pieChartData: PieChartData,
+    modifier: Modifier,
+    progress: Float,
+    sliceDrawer: SliceDrawer
 ) {
   val slices = pieChartData.slices
 

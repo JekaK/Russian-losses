@@ -1,7 +1,10 @@
 package com.russialoses.app.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class RussianLossesItem(
     @SerializedName("aircrafts")
     val aircrafts: Int? = null,
@@ -35,4 +38,4 @@ data class RussianLossesItem(
     val vehicles: Int? = null,
     @SerializedName("vessels")
     val vessels: Int? = null
-)
+) : Parcelable

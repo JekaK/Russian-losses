@@ -14,10 +14,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.russialoses.app.R
-import com.russialoses.app.custom.PieChart
-import com.russialoses.app.custom.PieChartData
+import com.russialoses.app.custom.pie.PieChart
+import com.russialoses.app.custom.pie.PieChartData
 import com.russialoses.app.custom.animation.simpleChartAnimation
-import com.russialoses.app.custom.renderer.SimpleSliceDrawer
+import com.russialoses.app.custom.pie.renderer.SimpleSliceDrawer
 import com.russialoses.app.model.RussianLossesItem
 
 

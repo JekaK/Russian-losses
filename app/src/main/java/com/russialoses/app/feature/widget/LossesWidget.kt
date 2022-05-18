@@ -1,40 +1,123 @@
 package com.russialoses.app.feature.widget
 
+import android.appwidget.AppWidgetManager
+import android.content.Context
+import android.content.Intent
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.sp
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.glance.GlanceModifier
+import androidx.glance.ImageProvider
 import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
+import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
-import androidx.glance.text.FontWeight
-import androidx.glance.text.Text
-import androidx.glance.text.TextAlign
-import androidx.glance.text.TextStyle
-import androidx.glance.unit.ColorProvider
+import androidx.glance.appwidget.state.updateAppWidgetState
+import androidx.glance.background
+import androidx.glance.currentState
+import androidx.glance.layout.Row
+import androidx.glance.layout.fillMaxWidth
+import androidx.glance.state.PreferencesGlanceStateDefinition
+import androidx.work.*
+import com.google.gson.Gson
 import com.russialoses.app.MainActivity
+import com.russialoses.app.R
+import com.russialoses.app.feature.widget.view.AdditionalInfoView
+import com.russialoses.app.feature.widget.view.FullLossesView
+import com.russialoses.app.model.RussianLossesItem
+import com.russialoses.app.util.fromJson
+import com.russialoses.app.work.UpdateLossesDataWork
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 class LossesWidget : GlanceAppWidget() {
     @Composable
     override fun Content() {
-        Text(
-            text = "slava",
-            style = TextStyle(
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp,
-                textAlign = TextAlign.Center,
-                color = ColorProvider(
-                    color = Color.White
+        val prefs = currentState<Preferences>()
+        val fullData =
+            Gson().fromJson<List<RussianLossesItem>>(prefs[LossesWidgetReceiver.fullData] ?: "")
+
+        fullData?.let {
+            Row(
+                modifier = GlanceModifier.background(ImageProvider(R.drawable.background_gradient))
+                    .fillMaxWidth().clickable(actionStartActivity<MainActivity>())
+            ) {
+                FullLossesView(
+                    current = fullData?.first()?.personnel ?: 0,
+                    previous = fullData?.get(1)?.personnel ?: 0,
+                    modifier = GlanceModifier
+                        .defaultWeight()
                 )
-            ),
-            modifier = GlanceModifier.clickable(actionStartActivity<MainActivity>())
-        )
+                AdditionalInfoView(fullData, modifier = GlanceModifier.defaultWeight())
+            }
+        }
     }
 }
 
 class LossesWidgetReceiver : GlanceAppWidgetReceiver() {
+
     override val glanceAppWidget: GlanceAppWidget
         get() = LossesWidget()
 
+    private val coroutineScope = MainScope()
+
+    private var updateWorkRequest: WorkRequest? = null
+
+    override fun onUpdate(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetIds: IntArray
+    ) {
+        super.onUpdate(context, appWidgetManager, appWidgetIds)
+        if (updateWorkRequest == null) {
+            updateWorkRequest = PeriodicWorkRequestBuilder<UpdateLossesDataWork>(12, TimeUnit.HOURS)
+                .setConstraints(
+                    Constraints.Builder()
+                        .setRequiredNetworkType(NetworkType.CONNECTED)
+                        .build()
+                )
+                .build()
+            WorkManager
+                .getInstance(context)
+                .enqueue(updateWorkRequest!!)
+        }
+    }
+
+    override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
+        if (intent.action == UPDATE_ACTION) {
+            observeData(context, intent)
+        }
+    }
+
+    private fun observeData(context: Context, intent: Intent) {
+        coroutineScope.launch {
+            val glanceId =
+                GlanceAppWidgetManager(context).getGlanceIds(LossesWidget::class.java).firstOrNull()
+
+            glanceId?.let {
+                updateAppWidgetState(context, PreferencesGlanceStateDefinition, it) { pref ->
+                    pref.toMutablePreferences().apply {
+                        val resultArray = mutableListOf<RussianLossesItem>()
+                        (intent.extras?.get(DATA_VALUE) as Array<*>).forEach {
+                            resultArray.add(it as RussianLossesItem)
+                        }
+                        if (intent.extras?.get(DATA_VALUE) != null) {
+                            this[fullData] = Gson().toJson(resultArray)
+                        }
+                    }
+                }
+                glanceAppWidget.update(context, it)
+            }
+
+        }
+    }
+
+    companion object {
+        const val DATA_VALUE = "dataValue"
+        const val UPDATE_ACTION = "updateAction"
+        val fullData = stringPreferencesKey("fullData")
+    }
 }
