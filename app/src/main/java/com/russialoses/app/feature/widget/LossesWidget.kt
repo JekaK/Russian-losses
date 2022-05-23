@@ -63,7 +63,7 @@ class LossesWidgetReceiver : GlanceAppWidgetReceiver() {
 
     private val coroutineScope = MainScope()
 
-    private var updateWorkRequest: WorkRequest? = null
+    private var updateWorkRequest: PeriodicWorkRequest? = null
 
     override fun onUpdate(
         context: Context,
@@ -72,13 +72,15 @@ class LossesWidgetReceiver : GlanceAppWidgetReceiver() {
     ) {
         super.onUpdate(context, appWidgetManager, appWidgetIds)
         if (updateWorkRequest == null) {
-            updateWorkRequest = PeriodicWorkRequestBuilder<UpdateLossesDataWork>(12, TimeUnit.HOURS)
-                .setConstraints(
-                    Constraints.Builder()
-                        .setRequiredNetworkType(NetworkType.CONNECTED)
-                        .build()
-                )
-                .build()
+            updateWorkRequest = PeriodicWorkRequestBuilder<UpdateLossesDataWork>(
+                2,
+                TimeUnit.DAYS
+            ).setConstraints(
+                Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build()
+            ).build()
+
             WorkManager
                 .getInstance(context)
                 .enqueue(updateWorkRequest!!)
