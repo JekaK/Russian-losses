@@ -7,34 +7,54 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.colorResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.russialoses.app.R
+import com.russialoses.app.domain.model.RussianLossesItem
+import com.russialoses.app.feature.home.presentation.HomeViewModel
 import com.russialoses.app.feature.home.view.AdditionalInfoView
 import com.russialoses.app.feature.home.view.BarChartView
 import com.russialoses.app.feature.home.view.FullLossesView
-import com.russialoses.app.feature.home.viewmodel.HomeViewModel
-import com.russialoses.app.domain.model.RussianLossesItem
-import com.russialoses.app.util.collectAsStateLifecycleAware
+import kotlinx.coroutines.launch
 
 @Composable
-fun Home() {
-    val homeViewModel: HomeViewModel = hiltViewModel()
+fun Home(viewModel: HomeViewModel) {
+    val scope = rememberCoroutineScope()
 
-    val russianLosesResponse: List<RussianLossesItem> by homeViewModel.getRussianLoses()
-        .collectAsStateLifecycleAware(
-            initial = emptyList()
-        )
-    HomeContent(russianLosesResponse)
+    var russianLosses by remember {
+        mutableStateOf<List<RussianLossesItem>?>(null)
+    }
+
+    Box(
+        modifier = Modifier
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        colorResource(id = R.color.gradient_top),
+                        colorResource(id = R.color.gradient_bottom)
+                    )
+                )
+            )
+            .fillMaxSize()
+    ) {
+        russianLosses?.let { HomeContent(it) }
+    }
+
+    LaunchedEffect(key1 = true) {
+        scope.launch {
+            viewModel.subscribeToStateUpdate().collect {
+                if (it?.isNotEmpty() == true) {
+                    russianLosses = it
+                }
+            }
+        }
+    }
 }
 
 @Composable
 fun HomeContent(russianLosses: List<RussianLossesItem>) {
-
     Surface {
         Box(
             modifier = Modifier

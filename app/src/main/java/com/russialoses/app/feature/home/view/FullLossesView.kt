@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -33,7 +34,7 @@ fun FullLossesView(current: Int, previous: Int) {
         Text(
             buildAnnotatedString {
                 append(
-                    "Втрати особового складу ворога \nна "
+                    stringResource(R.string.losses_at)
                 )
                 withStyle(style = SpanStyle(color = Color.White)) {
                     append("$day ${DateMapper.getCurrentUkrainianMonth()} ")
@@ -42,7 +43,7 @@ fun FullLossesView(current: Int, previous: Int) {
                 withStyle(style = SpanStyle(color = Color.White)) {
                     append("${DateMapper.getCurrentDayOfWar()}")
                 }
-                append(" день війни")
+                append(stringResource(R.string.day_of_war))
             },
             color = colorResource(id = R.color.secondary_text),
         )

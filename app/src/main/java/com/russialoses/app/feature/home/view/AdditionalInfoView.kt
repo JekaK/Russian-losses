@@ -126,13 +126,15 @@ private fun AdditionalInfo(
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             softWrap = true,
-            modifier = Modifier.constrainAs(text1) {
-                top.linkTo(parent.top)
-                bottom.linkTo(divider.top)
-                start.linkTo(parent.start)
-                end.linkTo(text2.start)
-                width = Dimension.fillToConstraints
-            },
+            modifier = Modifier
+                .constrainAs(text1) {
+                    top.linkTo(parent.top)
+                    bottom.linkTo(divider.top)
+                    start.linkTo(parent.start)
+                    end.linkTo(text2.start)
+                    width = Dimension.fillToConstraints
+                }
+                .padding(end = 3.dp),
         )
 
         Text(
