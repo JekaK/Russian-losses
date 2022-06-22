@@ -2,8 +2,8 @@ package com.russialoses.app.feature.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.russialoses.app.data.LosesRepository
-import com.russialoses.app.model.RussianLossesItem
+import com.russialoses.app.domain.model.RussianLossesItem
+import com.russialoses.app.domain.usecase.LossesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,27 +13,27 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val losesRepository: LosesRepository
+    private val lossesUseCase: LossesUseCase
 ) : ViewModel() {
 
-    private val _losesReponse: MutableStateFlow<List<RussianLossesItem>> = MutableStateFlow(
+    private val _losesResponse: MutableStateFlow<List<RussianLossesItem>> = MutableStateFlow(
         emptyList()
     )
 
     fun getRussianLoses(): StateFlow<List<RussianLossesItem>> {
-        return _losesReponse
+        return _losesResponse
     }
 
     init {
         viewModelScope.launch {
-            val result = async { losesRepository.getLosses() }.await()
+            val result = async { lossesUseCase.getRussianLosses() }.await()
 
             if (result.isSuccessful) {
                 result.body()?.let {
-                    _losesReponse.value = it
+                    _losesResponse.value = it
                 }
             } else {
-                _losesReponse.value = emptyList()
+                _losesResponse.value = emptyList()
             }
         }
     }

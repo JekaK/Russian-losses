@@ -25,7 +25,7 @@ import com.russialoses.app.MainActivity
 import com.russialoses.app.R
 import com.russialoses.app.feature.widget.view.AdditionalInfoView
 import com.russialoses.app.feature.widget.view.FullLossesView
-import com.russialoses.app.model.RussianLossesItem
+import com.russialoses.app.domain.model.RussianLossesItem
 import com.russialoses.app.util.fromJson
 import com.russialoses.app.work.UpdateLossesDataWork
 import kotlinx.coroutines.MainScope

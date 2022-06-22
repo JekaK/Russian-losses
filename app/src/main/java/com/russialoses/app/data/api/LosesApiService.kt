@@ -1,6 +1,6 @@
 package com.russialoses.app.data.api
 
-import com.russialoses.app.model.RussianLossesItem
+import com.russialoses.app.domain.model.RussianLossesItem
 import retrofit2.Response
 import retrofit2.http.GET
 

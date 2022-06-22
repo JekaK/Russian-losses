@@ -18,7 +18,7 @@ import com.russialoses.app.custom.pie.PieChart
 import com.russialoses.app.custom.pie.PieChartData
 import com.russialoses.app.custom.animation.simpleChartAnimation
 import com.russialoses.app.custom.pie.renderer.SimpleSliceDrawer
-import com.russialoses.app.model.RussianLossesItem
+import com.russialoses.app.domain.model.RussianLossesItem
 
 
 @Composable

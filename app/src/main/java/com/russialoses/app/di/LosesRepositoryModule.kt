@@ -1,9 +1,9 @@
 package com.russialoses.app.di
 
 import com.russialoses.app.BuildConfig
-import com.russialoses.app.data.LosesRepository
-import com.russialoses.app.data.LosesRepositoryImpl
+import com.russialoses.app.data.datasource.LossesDataSourceImpl
 import com.russialoses.app.data.api.LosesApiService
+import com.russialoses.app.domain.interfaces.LosesDataSource
 import com.russialoses.app.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -51,6 +51,6 @@ object LosesRepositoryModule {
 
     @Provides
     @Singleton
-    fun provideLosesRemoteData(losesService: LosesApiService): LosesRepository =
-        LosesRepositoryImpl(losesService)
+    fun provideLosesRemoteData(losesService: LosesApiService): LosesDataSource =
+        LossesDataSourceImpl(losesService)
 }

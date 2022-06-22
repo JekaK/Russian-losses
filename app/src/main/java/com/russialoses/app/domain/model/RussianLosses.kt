@@ -1,4 +1,4 @@
-package com.russialoses.app.model
+package com.russialoses.app.domain.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

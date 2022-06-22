@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.russialoses.app.data.LosesRepository
+import com.russialoses.app.domain.usecase.LossesUseCase
 import com.russialoses.app.feature.widget.LossesWidgetReceiver
 import com.russialoses.app.feature.widget.LossesWidgetReceiver.Companion.DATA_VALUE
 import com.russialoses.app.feature.widget.LossesWidgetReceiver.Companion.UPDATE_ACTION
@@ -16,11 +16,11 @@ import dagger.assisted.AssistedInject
 class UpdateLossesDataWork @AssistedInject constructor(
     @Assisted val appContext: Context,
     @Assisted workerParams: WorkerParameters,
-    private val losesRepository: LosesRepository
+    private val losesRepository: LossesUseCase
 ) : CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result {
-        val result = losesRepository.getLosses()
+        val result = losesRepository.getRussianLosses()
 
         return if (result.isSuccessful) {
             result.body()?.let {

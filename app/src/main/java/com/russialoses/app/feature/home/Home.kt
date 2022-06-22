@@ -18,7 +18,7 @@ import com.russialoses.app.feature.home.view.AdditionalInfoView
 import com.russialoses.app.feature.home.view.BarChartView
 import com.russialoses.app.feature.home.view.FullLossesView
 import com.russialoses.app.feature.home.viewmodel.HomeViewModel
-import com.russialoses.app.model.RussianLossesItem
+import com.russialoses.app.domain.model.RussianLossesItem
 import com.russialoses.app.util.collectAsStateLifecycleAware
 
 @Composable
