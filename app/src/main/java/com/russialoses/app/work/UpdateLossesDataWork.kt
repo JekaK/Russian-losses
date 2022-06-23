@@ -22,11 +22,11 @@ class UpdateLossesDataWork @AssistedInject constructor(
     override suspend fun doWork(): Result {
         val result = losesRepository.getRussianLosses()
 
-        return if (result.isSuccessful) {
-            result.body()?.let {
+        return if (result.isNotEmpty()) {
+            result.let {
                 val intent = Intent(appContext, LossesWidgetReceiver::class.java).apply {
                     action = UPDATE_ACTION
-                    putExtra(DATA_VALUE, result.body()?.toTypedArray())
+                    putExtra(DATA_VALUE, it.toTypedArray())
                 }
                 appContext.sendBroadcast(intent)
             }

@@ -1,4 +1,4 @@
-package com.russialoses.app.di
+package com.russialoses.app.data.di
 
 import com.russialoses.app.state.AppState
 import dagger.Module

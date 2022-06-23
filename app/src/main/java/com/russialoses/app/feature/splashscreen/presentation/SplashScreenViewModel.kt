@@ -41,18 +41,18 @@ class SplashScreenViewModel @Inject constructor(
         viewModelScope.launch {
             val result = async { lossesUseCase.getRussianLosses() }.await()
 
-            if (result.isSuccessful) {
+            if (result.isNotEmpty()) {
                 reduce {
                     state.value = state.value.copy(
                         homeState = state.value.homeState.copy(
-                            russianLosses = result.body(),
+                            russianLosses = result,
                         ),
                         splashScreenState = state.value.splashScreenState.copy(dataLoadingState = DataLoadingState.DEFAULT)
 
                     )
                     state
                 }
-                postSideEffect(SplashScreenSideEffects.UpdateRussianLosses(result.body()))
+                postSideEffect(SplashScreenSideEffects.UpdateRussianLosses(result))
             } else {
                 reduce {
                     state.value = state.value.copy(

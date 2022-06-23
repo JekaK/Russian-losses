@@ -1,9 +1,9 @@
-package com.russialoses.app.di
+package com.russialoses.app.data.di
 
 import com.russialoses.app.BuildConfig
-import com.russialoses.app.data.datasource.LossesDataSourceImpl
-import com.russialoses.app.data.api.LosesApiService
-import com.russialoses.app.domain.interfaces.LosesDataSource
+import com.russialoses.app.data.api.ApiService
+import com.russialoses.app.data.repo.RemoteRepoImpl
+import com.russialoses.app.domain.repositories.RemoteRepo
 import com.russialoses.app.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -17,7 +17,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object LosesRepositoryModule {
+object NetworkModule {
 
     @Provides
     fun providesBaseUrl(): String = Constants.BASE_URL
@@ -46,11 +46,6 @@ object LosesRepositoryModule {
 
     @Provides
     @Singleton
-    fun provideLosesService(retrofit: Retrofit): LosesApiService =
-        retrofit.create(LosesApiService::class.java)
-
-    @Provides
-    @Singleton
-    fun provideLosesRemoteData(losesService: LosesApiService): LosesDataSource =
-        LossesDataSourceImpl(losesService)
+    fun provideLosesRemoteData(losesService: ApiService): RemoteRepo =
+        RemoteRepoImpl(losesService)
 }

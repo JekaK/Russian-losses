@@ -1,12 +1,12 @@
 package com.russialoses.app.domain.usecase
 
-import com.russialoses.app.domain.interfaces.LosesDataSource
+import com.russialoses.app.domain.repositories.RemoteRepo
 import javax.inject.Inject
 
 class LossesUseCase @Inject constructor() {
 
     @Inject
-    lateinit var lossesDataSource: LosesDataSource
+    lateinit var remoteRepo: RemoteRepo
 
-    suspend fun getRussianLosses() = lossesDataSource.getLosses()
+    suspend fun getRussianLosses() = remoteRepo.getLosses()
 }
