@@ -4,7 +4,7 @@ import com.russialoses.app.BuildConfig
 import com.russialoses.app.data.api.ApiService
 import com.russialoses.app.data.repo.RemoteRepoImpl
 import com.russialoses.app.domain.repositories.RemoteRepo
-import com.russialoses.app.util.Constants
+import com.russialoses.app.presentation.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

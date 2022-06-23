@@ -1,6 +1,6 @@
 package com.russialoses.app.data.di
 
-import com.russialoses.app.state.AppState
+import com.russialoses.app.presentation.state.AppState
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
