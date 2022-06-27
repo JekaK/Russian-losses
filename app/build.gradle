@@ -111,5 +111,5 @@ dependencies {
 
     implementation "com.google.accompanist:accompanist-insets:$accompanist_incets_version"
     implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_animation_navigation_version"
-
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
 }
