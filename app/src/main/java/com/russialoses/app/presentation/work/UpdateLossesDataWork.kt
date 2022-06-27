@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.russialoses.app.domain.usecase.LossesUseCase
+import com.krykun.domain.usecase.LossesUseCase
 import com.russialoses.app.presentation.feature.widget.LossesWidgetReceiver
 import com.russialoses.app.presentation.feature.widget.LossesWidgetReceiver.Companion.DATA_VALUE
 import com.russialoses.app.presentation.feature.widget.LossesWidgetReceiver.Companion.UPDATE_ACTION

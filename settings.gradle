@@ -1,8 +1,9 @@
 pluginManagement {
     repositories {
-        gradlePluginPortal()
         google()
         mavenCentral()
+        maven { url 'https://maven.google.com' }
+        gradlePluginPortal()
     }
 }
 dependencyResolutionManagement {
@@ -16,3 +17,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Russia Loses"
 include ':app'
+include ':data'
+include ':domain'

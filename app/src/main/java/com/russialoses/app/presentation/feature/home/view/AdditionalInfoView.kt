@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.krykun.domain.model.RussianLossesItem
 import com.russialoses.app.R
-import com.russialoses.app.domain.model.RussianLossesItem
 
 @Composable
 fun AdditionalInfoView(russianLosses: List<RussianLossesItem>) {

@@ -13,13 +13,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.krykun.domain.model.RussianLossesItem
 import com.russialoses.app.R
+import com.russialoses.app.presentation.custom.animation.simpleChartAnimation
 import com.russialoses.app.presentation.custom.pie.PieChart
 import com.russialoses.app.presentation.custom.pie.PieChartData
-import com.russialoses.app.presentation.custom.animation.simpleChartAnimation
 import com.russialoses.app.presentation.custom.pie.renderer.SimpleSliceDrawer
-import com.russialoses.app.domain.model.RussianLossesItem
-
 
 @Composable
 fun BarChartView(russianLosses: List<RussianLossesItem>) {

@@ -1,9 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -112,4 +112,7 @@ dependencies {
     implementation "com.google.accompanist:accompanist-insets:$accompanist_incets_version"
     implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_animation_navigation_version"
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
+
+    implementation project(':domain')
+    implementation project(':data')
 }

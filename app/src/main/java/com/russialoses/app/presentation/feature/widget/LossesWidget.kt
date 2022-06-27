@@ -21,11 +21,11 @@ import androidx.glance.layout.fillMaxWidth
 import androidx.glance.state.PreferencesGlanceStateDefinition
 import androidx.work.*
 import com.google.gson.Gson
+import com.krykun.domain.model.RussianLossesItem
 import com.russialoses.app.MainActivity
 import com.russialoses.app.R
 import com.russialoses.app.presentation.feature.widget.view.AdditionalInfoView
 import com.russialoses.app.presentation.feature.widget.view.FullLossesView
-import com.russialoses.app.domain.model.RussianLossesItem
 import com.russialoses.app.presentation.util.fromJson
 import com.russialoses.app.presentation.work.UpdateLossesDataWork
 import kotlinx.coroutines.MainScope

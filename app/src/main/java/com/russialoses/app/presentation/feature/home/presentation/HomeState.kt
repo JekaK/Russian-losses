@@ -1,6 +1,6 @@
 package com.russialoses.app.presentation.feature.home.presentation
 
-import com.russialoses.app.domain.model.RussianLossesItem
+import com.krykun.domain.model.RussianLossesItem
 
 data class HomeState(
     val isOpen: Boolean = false,

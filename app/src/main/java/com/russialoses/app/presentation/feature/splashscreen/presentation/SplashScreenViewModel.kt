@@ -2,7 +2,7 @@ package com.russialoses.app.presentation.feature.splashscreen.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.russialoses.app.domain.usecase.LossesUseCase
+import com.krykun.domain.usecase.LossesUseCase
 import com.russialoses.app.presentation.state.AppState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async

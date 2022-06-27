@@ -11,8 +11,8 @@ import androidx.glance.layout.*
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
+import com.krykun.domain.model.RussianLossesItem
 import com.russialoses.app.R
-import com.russialoses.app.domain.model.RussianLossesItem
 
 @Composable
 fun AdditionalInfoView(russianLosses: List<RussianLossesItem>, modifier: GlanceModifier) {

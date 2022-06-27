@@ -25,21 +25,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.krykun.domain.model.RussianLossesItem
 import com.russialoses.app.R
-import com.russialoses.app.domain.model.RussianLossesItem
 import com.russialoses.app.presentation.feature.home.presentation.HomeViewModel
 import com.russialoses.app.presentation.feature.home.view.AdditionalInfoView
 import com.russialoses.app.presentation.feature.home.view.BarChartView
 import com.russialoses.app.presentation.feature.home.view.FullLossesView
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @Composable
 fun Home(viewModel: HomeViewModel) {
     val scope = rememberCoroutineScope()
-
-    var russianLosses by remember {
-        mutableStateOf<List<RussianLossesItem>?>(null)
-    }
 
     Box(
         modifier = Modifier
@@ -53,16 +50,12 @@ fun Home(viewModel: HomeViewModel) {
             )
             .fillMaxSize()
     ) {
-        russianLosses?.let { HomeContent(it) }
+        viewModel.russianLosses.value?.let { HomeContent(it) }
     }
 
     LaunchedEffect(key1 = true) {
         scope.launch {
-            viewModel.subscribeToStateUpdate().collect {
-                if (it?.isNotEmpty() == true) {
-                    russianLosses = it
-                }
-            }
+            viewModel.subscribeToStateUpdate().collect()
         }
     }
 }

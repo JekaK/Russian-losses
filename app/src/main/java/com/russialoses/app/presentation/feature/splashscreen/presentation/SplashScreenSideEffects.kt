@@ -1,6 +1,6 @@
 package com.russialoses.app.presentation.feature.splashscreen.presentation
 
-import com.russialoses.app.domain.model.RussianLossesItem
+import com.krykun.domain.model.RussianLossesItem
 
 sealed class SplashScreenSideEffects {
     data class UpdateRussianLosses(val russianLosses: List<RussianLossesItem>?) :

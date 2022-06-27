@@ -1,11 +1,13 @@
 package com.russialoses.app.presentation.feature.home.presentation
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.russialoses.app.domain.usecase.LossesUseCase
+import com.krykun.domain.model.RussianLossesItem
 import com.russialoses.app.presentation.ext.takeWhenChanged
 import com.russialoses.app.presentation.state.AppState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -14,12 +16,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    appState: MutableStateFlow<AppState>,
-    private val lossesUseCase: LossesUseCase
+    appState: MutableStateFlow<AppState>
 ) : ContainerHost<MutableStateFlow<AppState>, HomeSideEffects>,
     ViewModel() {
 
     override val container = container<MutableStateFlow<AppState>, HomeSideEffects>(appState)
+
+    private var _russianLosses = mutableStateOf<List<RussianLossesItem>?>(null)
+    val russianLosses = _russianLosses
 
     init {
         setIsScreenOpen()
@@ -37,6 +41,9 @@ class HomeViewModel @Inject constructor(
     fun subscribeToStateUpdate() =
         container.stateFlow.value.takeWhenChanged {
             it.homeState.russianLosses
+        }.map {
+            if (it?.isNotEmpty() == true) {
+                russianLosses.value = it
+            }
         }
-
 }
