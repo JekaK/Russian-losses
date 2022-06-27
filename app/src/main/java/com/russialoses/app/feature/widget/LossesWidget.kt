@@ -113,7 +113,6 @@ class LossesWidgetReceiver : GlanceAppWidgetReceiver() {
                 }
                 glanceAppWidget.update(context, it)
             }
-
         }
     }
 
