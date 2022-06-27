@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
-import com.russialoses.app.presentation.navigation.SetupNavGraph
-import com.russialoses.app.presentation.theme.RussiaLosesTheme
+import com.russialoses.app.navigation.SetupNavGraph
+import com.russialoses.app.theme.RussiaLosesTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
